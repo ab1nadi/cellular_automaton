@@ -9,5 +9,9 @@
   },
   "devDependencies": {
     "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "save": "^2.5.0",
+    "two.js": "^0.8.10"
   }
 }

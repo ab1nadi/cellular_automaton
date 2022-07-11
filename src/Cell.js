@@ -13,15 +13,14 @@ export default class Cell{
         // get the container holding it
         this.container = contRef;
 
-        this.square = this.two.makeRectangle(x-this.two.cellSize/2,y-this.two.cellSize/2,this.two.cellSize, this.two.cellSize)
+        this.square = this.two.makeRectangle(x+this.two.cellSize/2,y+this.two.cellSize/2,this.two.cellSize, this.two.cellSize)
 
         this.two.update();
 
-        this.square._renderer.elem.addEventListener('mouseover', ()=>{this.on(); console.log(this.xIndex, this.yIndex, "INDEXEs")}, false);
-        this.square._renderer.elem.addEventListener('click', ()=>this.on(), false);
+        this.square._renderer.elem.addEventListener('click', ()=>this.on(true), false);
 
         // this will help keep track of neighbors
-        this.offLastGen = true;
+        this.onLastGen = false;
         this.alive = false;
     }
 
@@ -32,9 +31,9 @@ export default class Cell{
         {
                 this.square.fill = BLACK;
                 this.alive = true;
+
         }
 
-        this.two.update();
     }
 
 
@@ -42,20 +41,20 @@ export default class Cell{
     // will go onto the next
     // generation 
     // or be born in the next generation
-    nextGen()
+    nextGen(lastGenCopy)
     {
 
 
-         // lets do the thing
-         if(!this.checkOn())
-             this.offLastGen = true;
-         else 
-             this.offLastGen = false;
+
+
+             
+         if(this.alive)
+            console.log("alive")
  
-         let neighbors = this.getNeighbors();
- 
-         if(neighbors > 0 )
-             console.log(neighbors)
+         let neighbors = this.getNeighbors(lastGenCopy);
+
+
+  
  
          // cell dies with 1 or less neighbors
          if(neighbors <=1)
@@ -82,25 +81,23 @@ export default class Cell{
     }
 
 
-    getNeighbors()
+    getNeighbors(lastGenCopy)
     {
         let cnt = 0;
         for(let y = this.yIndex-1; y<this.yIndex+2; y++)
         {
             for(let x = this.xIndex-1; x<this.xIndex+2; x++)
             {
-                console.log(x,y)
-                if(y > -1 && y < this.container.length && x > -1 && x < this.container[y].length)
+                if(y > -1 && y <  lastGenCopy.length && x > -1 && x < lastGenCopy[y].length)
                 {
-                    console.log("got in here")
-                    if(this.container[y][x].checkOn() || !this.container[y][x].offLastGen)
-                      {  cnt++;
-                         console.log("got ran")
-                      }
-                }
-            }
-        }
 
+                    if(!(x == this.xIndex && y==this.yIndex))
+                        if( lastGenCopy[y][x])
+                            cnt++;
+                        }
+                }
+
+            }
         return cnt;
     }
 

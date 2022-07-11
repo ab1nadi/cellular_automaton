@@ -3,11 +3,13 @@ import './style.css'
 import './style.css'
 
 import Two from 'two.js'
+
+
 import CellurAutomaton from './src/CellularAutomaton';
 
-
+let totalTime = 0;
 var params = {
-  height:screen.height,
+  height:screen.height-50,
   width:screen.width,
   id:"cellularAutomaton"
 };
@@ -16,7 +18,7 @@ var params = {
 // init the variables
 var elem = document.getElementById("app");
 var two = new Two(params).appendTo(elem);
-two.cellSize = 100;
+two.cellSize = 20;
 var c = new CellurAutomaton(two);
 
 
@@ -32,11 +34,17 @@ document.body.addEventListener("keypress", ()=>{
 
 
 
+
 // the update loop
 function update(frameCount) {
   
-  if(frameCount %100==0 && window.run==true)
-    c.nextGen();
+  if(window.run==true && totalTime >=400)
+   { c.nextGen();
+    totalTime = 0;
+   }
   
+
+
+    totalTime+=two.timeDelta;
 }
 

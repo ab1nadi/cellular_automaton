@@ -30,11 +30,10 @@ export default class CellurAutomaton
 
         this.two.mouseDown = false;
 
+
+
         // settup the event for the mouse
         // settup the mousedown event
-        document.body.addEventListener('mousedown', ()=> {this.two.mouseDown= true}, false);
-
-        document.body.addEventListener('mouseup', ()=> {this.two.mouseDown= false}, false);
     }
 
 
@@ -42,14 +41,33 @@ export default class CellurAutomaton
     // increments the game to the next generation
     nextGen()
     {
-        
+        let offOnCopy = this.offOnArray(this.cells);
         /// copy of last gen
         for(let y = 0; y<this.cells.length; y++)
         {
             for(let x = 0; x<this.cells[y].length; x++)
             {
-                this.cells[y][x].nextGen();
+                this.cells[y][x].nextGen(offOnCopy);
             }
         }
+    }
+
+
+    offOnArray(cont)
+    {
+        let returned = [];
+        for(let y = 0; y<this.cells.length; y++)
+        {
+            returned.push(new Array())
+            for(let x = 0; x<this.cells[y].length; x++)
+            {
+                if(this.cells[y][x].alive)
+                    returned[y].push(true)
+                else 
+                    returned[y].push(false);
+            }
+        }
+
+        return returned;
     }
 }

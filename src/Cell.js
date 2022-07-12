@@ -17,7 +17,7 @@ export default class Cell{
 
         this.two.update();
 
-        this.square._renderer.elem.addEventListener('click', ()=>this.on(true), false);
+        this.square._renderer.elem.addEventListener('click', ()=>{this.on(true); console.log("called")}, false);
 
         // this will help keep track of neighbors
         this.onLastGen = false;

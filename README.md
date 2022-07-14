@@ -5,7 +5,7 @@ A little project built with vite, two.js, and vanilla html5/css/javascript. That
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Runs the realtime dev server
 ```
 npm run dev
 ```

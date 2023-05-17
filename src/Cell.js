@@ -1,6 +1,7 @@
-
 const WHITE ="#FFF";
 const BLACK = "#0";
+
+// The Cell class
 export default class Cell{
     constructor(two,x,y,xI,yI,contRef)
     {
@@ -17,23 +18,11 @@ export default class Cell{
 
         this.two.update();
 
-        this.square._renderer.elem.addEventListener('click', ()=>{this.on(true); console.log("called")}, false);
+        this.square._renderer.elem.addEventListener('click', ()=>{this.on(true);}, false);
 
         // this will help keep track of neighbors
         this.onLastGen = false;
         this.alive = false;
-    }
-
-
-    on(onNoMatterWhat = false)
-    {
-        if(onNoMatterWhat || this.two.mouseDown)
-        {
-                this.square.fill = BLACK;
-                this.alive = true;
-
-        }
-
     }
 
 
@@ -44,18 +33,8 @@ export default class Cell{
     nextGen(lastGenCopy)
     {
 
-
-
-
-             
-         if(this.alive)
-            console.log("alive")
- 
          let neighbors = this.getNeighbors(lastGenCopy);
 
-
-  
- 
          // cell dies with 1 or less neighbors
          if(neighbors <=1)
            {  if(this.checkOn())
@@ -68,19 +47,31 @@ export default class Cell{
          // it is born
          else if(!this.checkOn() && neighbors == 3)
              this.on(true);
- 
- 
-
 
     }
 
+    // off
+    // turns this cell off and makes it dead
     off()
     {
         this.square.fill = WHITE;
         this.alive = false;
     }
 
+    // on
+    // turns a cell on and makes it alive
+    on(onNoMatterWhat = false)
+    {
+        if(onNoMatterWhat || this.two.mouseDown)
+        {
+                this.square.fill = BLACK;
+                this.alive = true;
+        }
+    }
 
+
+    // getNeighbors
+    // gets the neighbors of a cell
     getNeighbors(lastGenCopy)
     {
         let cnt = 0;
@@ -90,12 +81,11 @@ export default class Cell{
             {
                 if(y > -1 && y <  lastGenCopy.length && x > -1 && x < lastGenCopy[y].length)
                 {
-
                     if(!(x == this.xIndex && y==this.yIndex))
                         if( lastGenCopy[y][x])
                             cnt++;
-                        }
                 }
+            }
 
             }
         return cnt;

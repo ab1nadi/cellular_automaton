@@ -1,5 +1,9 @@
 import Cell from './Cell.js';
 
+// CellularAutomaton
+// this class does basically everything
+// manages all the cells, updates them, 
+// and clears them
 export default class CellurAutomaton 
 {
     constructor(two)
@@ -9,7 +13,7 @@ export default class CellurAutomaton
     }
 
 
-
+    // nextGen
     // increments the game to the next generation
     nextGen()
     {
@@ -24,6 +28,9 @@ export default class CellurAutomaton
         }
     }
 
+
+    // clear 
+    // turns all cells off
     clear()
     {
         for(let y = 0; y<this.cells.length; y++)
@@ -35,7 +42,9 @@ export default class CellurAutomaton
         }
     }
 
-
+    // offOnArray
+    // basically this copies the 
+    // current cells container
     offOnArray(cont)
     {
         let returned = [];
@@ -55,6 +64,8 @@ export default class CellurAutomaton
     }
 
 
+    // createCells
+    // creates all the cells to start off
     createCells(callback)
     {
         setTimeout(()=>{

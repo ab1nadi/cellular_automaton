@@ -1,14 +1,8 @@
 import './style.css'
-
-import './style.css'
-
+import CellurAutomaton from './src/CellularAutomaton';
 import Two from 'two.js'
 
 
-
-
-
-import CellurAutomaton from './src/CellularAutomaton';
 let generation = 0;
 let run = false;
 let totalTime = 0;
@@ -33,10 +27,10 @@ var c = new CellurAutomaton(two);
 
 
 // load the cells in the automaton
-
 c.createCells(()=>
+// this callback stops the loading div
+// and starts the two.js animation loop
 {
-
   loadingDiv.style.display = "none";
   // bind the update function
   two.bind('update', update);
@@ -46,15 +40,13 @@ c.createCells(()=>
 
 
 
-
-
-
-
 // the update loop
+// updates the CellularAutomaton
 function update(frameCount) {
   
   if(run && totalTime >=100)
-   { c.nextGen();
+   { 
+    c.nextGen();
     totalTime = 0;
     updateGenerationText(generation);
     generation++;
@@ -67,22 +59,28 @@ function update(frameCount) {
 function updateGenerationText(genNumber)
 {
   let genText = document.getElementsByClassName("generationText")[0];
-
   genText.innerHTML = "Gen: " + genNumber;
 }
 
 
+// Set up the events
+
+
+// the play button event
 document.getElementById("playB").addEventListener("click", ()=>
 {
    run = true;
 })
 
 
+// the puase button event
 document.getElementById("pauseB").addEventListener("click", ()=>
 {
   run = false;
 })
 
+
+// the clear button event
 document.getElementById("clearB").addEventListener("click", ()=>
 {
   run = false;
@@ -90,34 +88,3 @@ document.getElementById("clearB").addEventListener("click", ()=>
   c.clear();
   updateGenerationText(0);
 })
-
-
-
-
-
-// load the cells in the automaton
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
